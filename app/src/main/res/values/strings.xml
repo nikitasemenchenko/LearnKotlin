@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Learn Kotlin</string>
+    <string name="theme_change">Сменить тему</string>
+    <string name="search">Поиск</string>
+    <string name="next_chapter">Следующая глава</string>
+    <string name="next_article">Следующая тема</string>
+</resources>
