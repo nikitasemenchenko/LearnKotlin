@@ -77,3 +77,4 @@ val surfaceContainerHighestDark = Color(0xFF66CA66)
 
 val nextButtonColor = Color(0xFFC67CBA)
 val IDEcolor = Color(0xFF1E1F22)
+val LightBlue = Color(0xFF7292FF)

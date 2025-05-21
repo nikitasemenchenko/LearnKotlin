@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -44,6 +45,7 @@ import com.example.learnkotlin.model.Article
 import com.example.learnkotlin.model.Block
 import com.example.learnkotlin.R
 import com.example.learnkotlin.ui.theme.IDEcolor
+import com.example.learnkotlin.ui.theme.LightBlue
 import com.example.learnkotlin.ui.theme.nextButtonColor
 
 @Composable
@@ -148,7 +150,8 @@ fun ImageBlock(image: String){
         Image(
             painter = painterResource(id = imageId),
             contentDescription = null,
-            modifier = Modifier.size(dimensionResource(R.dimen.image_size))
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.Crop
         )
     }
 }
@@ -165,7 +168,7 @@ fun SubtitleBlock(text: String){
 fun UrlBlock(url: String, context: Context){
     Text(
         text = url,
-        color = Color.Blue,
+        color = LightBlue,
         textDecoration = TextDecoration.Underline,
         modifier = Modifier.clickable {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
