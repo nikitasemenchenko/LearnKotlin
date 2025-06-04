@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -42,6 +41,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -116,7 +116,7 @@ fun TopAppBar(
                 }
                 Text(
                     text = text,
-                    fontSize = 18.sp,
+                    fontSize = 20.sp,
                     textAlign = TextAlign.Center
                 )
             }
@@ -157,7 +157,7 @@ fun LearnKotlinScreen(){
 
     var title = ""
     var isLastArticle = false
-    var canGoBackToPreviousArticle = false
+    var canGoBack = false
     var isLastInGeneral = false
     when(backStackEntry?.destination?.route){
         Screen.MainScreen.route ->{
@@ -167,10 +167,10 @@ fun LearnKotlinScreen(){
             val chapterId = backStackEntry!!.arguments!!.getInt("chapterId")
             val articleId = backStackEntry!!.arguments!!.getInt("articleId")
             val chapter = chapters.first{it.chapterId == chapterId}
-            title = vm.getArticle(chapters, chapterId, articleId).title
+            title = chapter.title
             isLastArticle = if(chapter.articles.size == articleId) true
             else false
-            canGoBackToPreviousArticle = if(articleId !=1) true else false
+            canGoBack = if(articleId == 1 && chapterId == 1) false else true
             isLastInGeneral = if (chapterId == chapters.size && articleId == chapter.articles.size) true else false
         }
         else -> {
@@ -246,14 +246,27 @@ fun LearnKotlinScreen(){
                                 )
                             }
                         },
-                        canGoBack = canGoBackToPreviousArticle,
-                        goBack = {navController.navigate(
-                            Screen.ArticleScreen.createRoute(
-                                chapterId,
-                                articleId-1)
-                                    )
-                                 },
-                         lastInGeneral = isLastInGeneral)
+                        canGoBack = canGoBack,
+                        goBack = {
+                            if (articleId > 1) {
+                                navController.navigate(
+                                    Screen.ArticleScreen.createRoute(chapterId, articleId - 1)
+                                )
+                            } else if (chapterId > 1) {
+                                val prevChapterId = chapterId - 1
+                                val prevChapter = chapters.first { it.chapterId == prevChapterId }
+                                val lastArtId = prevChapter.articles.last().id
+                                navController.navigate(
+                                    Screen.ArticleScreen.createRoute(prevChapterId, lastArtId)
+                                )
+                            }
+                        },
+                         lastInGeneral = isLastInGeneral,
+                        goBackToMainScreen = {
+                            navController.navigate(Screen.MainScreen.route)  {
+                                popUpTo(Screen.MainScreen.route) { inclusive = false }
+                            }
+                        })
                 }
             }
 

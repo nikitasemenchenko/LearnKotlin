@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -26,6 +26,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -57,41 +58,54 @@ fun ArticleScreen(article: Article,
                   switchArticle: () -> Unit,
                   canGoBack: Boolean,
                   goBack: () -> Unit,
-                  lastInGeneral: Boolean){
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensionResource(R.dimen.padding_medium)),
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
-    ) {
-        items(article.content){block ->
-            when(block){
-                is Block.Text -> {
-                    TextBlock(block.text)
-                }
-                is Block.Code-> {
-                    CodeBlock(block.code, isDark)
-                }
-                is Block.Image->{
-                    ImageBlock(block.img)
-                }
-                is Block.Subtitle -> {
-                    SubtitleBlock(block.text)
-                }
-                is Block.Url -> {
-                    UrlBlock(block.url, context)
+                  lastInGeneral: Boolean,
+                  goBackToMainScreen: () -> Unit ){
+    BackHandler {
+        goBackToMainScreen()
+    }
+    Scaffold(
+        bottomBar = {
+            Row {
+                if(canGoBack)CustomBackButton(goBack, isLastArticle = isLastArticle)
+                if(!lastInGeneral) {
+                    if(isLastArticle) CustomNextButton(switchChapter, isLastArticle)
+                    else CustomNextButton(switchArticle, isLastArticle)
                 }
             }
         }
-        item {
-                Row {
-                    if(canGoBack)CustomBackButton(goBack, isLastArticle = isLastArticle)
-                    if(!lastInGeneral) {
-                        if(isLastArticle) CustomNextButton(switchChapter, isLastArticle)
-                        else CustomNextButton(switchArticle, isLastArticle)
+    )
+    { innerPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = innerPadding.calculateBottomPadding())
+                .padding(all = dimensionResource(R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
+        ) {
+            items(article.content) { block ->
+                when (block) {
+                    is Block.Text -> {
+                        TextBlock(block.text)
+                    }
+
+                    is Block.Code -> {
+                        CodeBlock(block.code, isDark)
+                    }
+
+                    is Block.Image -> {
+                        ImageBlock(block.img)
+                    }
+
+                    is Block.Subtitle -> {
+                        SubtitleBlock(block.text)
+                    }
+
+                    is Block.Url -> {
+                        UrlBlock(block.url, context)
                     }
                 }
             }
+        }
         }
     }
 

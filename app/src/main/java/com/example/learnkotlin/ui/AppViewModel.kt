@@ -35,6 +35,9 @@ val uiState: StateFlow<learnKotlinUiState> = _uiState.asStateFlow()
     fun getArticle(chapters: List<Chapter>, chapterId: Int, articleId: Int): Article {
         return chapters.first{it.chapterId == chapterId}.articles.first{it.id == articleId}
     }
+    fun getChapter(chapters: List<Chapter>, chapterId: Int, articleId: Int): Article {
+        return chapters.first{it.chapterId == chapterId}.articles.first{it.id == articleId}
+    }
 
     fun switchTheme(){
         val current = _uiState.value.isDarkTheme
