@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -40,6 +41,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -86,20 +88,6 @@ fun ActionsButton(onClick: () -> Unit){
                     )
                 }
             )
-            DropdownMenuItem(
-                onClick = {},
-                leadingIcon ={
-                    Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = stringResource(R.string.search)
-                    )} ,
-                text = {
-                    Text(
-                        text = stringResource(R.string.search),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
-            )
         }
     }
 }
@@ -115,7 +103,9 @@ fun TopAppBar(
 
     CenterAlignedTopAppBar(
         title = {
-            Row{
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ){
                 if(!canNavigateBack) {
                     Image(
                         painter = painterResource(R.drawable.kotlin),
@@ -126,6 +116,7 @@ fun TopAppBar(
                 }
                 Text(
                     text = text,
+                    fontSize = 18.sp,
                     textAlign = TextAlign.Center
                 )
             }
