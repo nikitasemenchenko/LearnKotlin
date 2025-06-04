@@ -4,13 +4,17 @@ Learn Kotlin is an Android educational application. It provides a structured gui
 
 ## 📸 Screenshots
 
-![Main Screen in Dark Theme](https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ExtendedMainScreen_Dark.jpg)
-![Main Screen in Light Theme](https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ExtendedMainScreen_Light.jpg)
-*Browse and search across all chapters*
+<p float="left">
+  <img src="https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ExtendedMainScreen_Dark.jpg" width="30%" />
+  <img src="https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ExtendedMainScreen_Light.jpg" width="30%" />
+</p>
+<p><i>Browse and search across all chapters</i></p>
 
-![Article Screen in Dark Theme](https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ArticleScreen_Dark.jpg)
-![Article Screen in Light Theme](https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ArticleScrenn_Light.jpg) 
-*Read a topic, check code snippets*
+<p float="left">
+  <img src="https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ArticleScreen_Dark.jpg" width="30%" />
+  <img src="https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ArticleScrenn_Light.jpg" width="30%" />
+</p>
+<p><i>Read a topic, check code snippets</i></p>
 
 ## Installation
 
