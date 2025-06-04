@@ -10,6 +10,7 @@ Learn Kotlin is an Android educational application. It provides a structured gui
 </p>
 <p><i>Browse and search across all chapters</i></p>
 
+<br>
 
 <p float="left">
   <img src="https://github.com/nikitasemenchenko/LearnKotlin/blob/master/Screenshoots/ArticleScreen_Dark.jpg" width="20%" />
